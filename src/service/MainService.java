@@ -20,6 +20,7 @@ public class MainService {
 			System.out.println("6? ->" + bstInteger.search(6));
 			System.out.println("15? ->" + bstInteger.search(15));
 			System.out.println("100? ->" + bstInteger.search(100));
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

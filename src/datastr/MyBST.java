@@ -151,6 +151,74 @@ public class MyBST <Ttype>{
 		}
 	}
 	
+	public void makeEmpty() throws Exception{
+		if (!isEmpty()) {
+			root = null;
+			counter = 0;
+			System.gc();
+		}
+	}
+	
+	public void delete(Ttype element) throws Exception{
+		if (isEmpty()) {
+			throw new Exception("BST is empty");
+		}
+		
+		if (!search(element)) {
+			throw new Exception("Element doesn't exist in BST and can't be deleted");
+		}
+		
+		deleteHelper(element,root);
+	}
+	
+	private void deleteHelper(Ttype element, MyBSTNode<Ttype> currentNode) {
+		if (element.equals(currentNode.getElement())) {
+			//ja currentnode ir kaa lapa
+			if (currentNode.getLeftCh() == null && currentNode.getRightCh() == null) {
+				MyBSTNode<Ttype> parentOfCurrentNode = currentNode.getParent();
+				
+				//janonem saite uz kreiso bernu
+				if (parentOfCurrentNode.getLeftCh().getElement().equals(element)) {
+					parentOfCurrentNode.setLeftCh(null);
+				} else if (parentOfCurrentNode.getRightCh().getElement().equals(element)) {
+					parentOfCurrentNode.setRightCh(null);
+				}
+			}
+			
+			// ja currentnode mezglam ir tikai viens berns
+			else if (currentNode.getLeftCh() == null && currentNode.getRightCh() != null) {
+				MyBSTNode<Ttype> parentOfCurrentNode = currentNode.getParent();
+				MyBSTNode<Ttype> rightChildOfCurrentNode = currentNode.getRightCh();
+				
+				parentOfCurrentNode.setRightCh(rightChildOfCurrentNode);
+				rightChildOfCurrentNode.setParent(parentOfCurrentNode);
+			}
+			else if (currentNode.getLeftCh() != null && currentNode.getRightCh() == null) {
+				MyBSTNode<Ttype> parentOfCurrentNode = currentNode.getParent();
+				MyBSTNode<Ttype> leftChildOfCurrentNode = currentNode.getLeftCh();
+				
+				parentOfCurrentNode.setLeftCh(leftChildOfCurrentNode);
+				leftChildOfCurrentNode.setParent(parentOfCurrentNode);
+			}
+			
+			// ja currentnode mezglam ir abi berni
+			else if (currentNode.getLeftCh() != null && currentNode.getRightCh() != null) {
+				
+			}
+		} else {
+			// ja elements ir lielaks par currentnode elementu
+			if (((Comparable)element).compareTo(currentNode.getElement()) == 1) {
+				if (currentNode.getRightCh() != null) {
+					deleteHelper(element,currentNode.getRightCh());
+				}
+			} else if (((Comparable)element).compareTo(currentNode.getElement()) == -1) {
+				if (currentNode.getLeftCh() != null) {
+					deleteHelper(element, currentNode.getLeftCh());
+				}
+			}
+		}
+	}
+	
 	
 	
 }
