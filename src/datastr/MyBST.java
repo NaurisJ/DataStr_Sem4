@@ -62,7 +62,7 @@ public class MyBST <Ttype>{
 				addHelper(element, currentNode.getRightCh());
 			}
 			
-			
+			// kreisa puse
 		}else if (((Comparable)element).compareTo(currentNode.getElement()) == -1) {
 			if (currentNode.getLeftCh() == null) {
 				MyBSTNode<Ttype> newNode = new MyBSTNode<>(element);
@@ -75,6 +75,52 @@ public class MyBST <Ttype>{
 		}
 		
 		// ja elements ir mazakaks par currentNode elementu, tad japarvirzas uz kreiso pusi
+	}
+	
+	//TODO
+	//search
+	//funkcijas deklaracija, ieklaujot mekleto elementu kaa input
+	// veikt nepieciesamas parbaudes - element == null, ja ir tukss
+	// izsauksim helper funkciju, sakot no root mezgla
+	
+	//izveidot privatu searchhelp funkciju
+	// parbaudam vai  currentNode elementa vertiba sakrit ar mekletu, ja ja, tad argriezam true
+	// ja nesakrit, tad parbaudit kur veikt meklesanu - pa labo pusi vai pa kreiso
+	// ja pa kreiso - tad izsaucam helper funkciju rekursivi uz currentnode mezgla kreiso bernu
+	// ja pa labo - tad izsaucam helper funkciju rekursivi uz currentNode mezgla labo bernu
+	
+	public boolean search(Ttype element) throws Exception{
+		if (element == null) {
+			throw new Exception("Element null");
+		}
+		
+		if (isEmpty()) {
+			throw new Exception("BST is empty");
+		}
+		return (boolean) searchHelper(element,root);
+		
+		
+	}
+	
+	private boolean searchHelper(Ttype element, MyBSTNode<Ttype> currentNode) {
+		if (element.equals(currentNode.getElement())) {
+			return true;
+		} else {
+			if (((Comparable)element).compareTo(currentNode.getElement()) == 1) {
+				if (currentNode.getRightCh() != null) {
+					return searchHelper(element,currentNode.getRightCh());
+				} else {
+					return false;
+				}
+			} else if (((Comparable)element).compareTo(currentNode.getElement()) == -1) {
+				if (currentNode.getLeftCh() != null) {
+					return searchHelper(element,currentNode.getLeftCh());
+				} else {
+					return false;
+				}
+			}
+		}
+		return false;
 	}
 	
 }
