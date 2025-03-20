@@ -123,4 +123,34 @@ public class MyBST <Ttype>{
 		return false;
 	}
 	
+	
+	public void print() throws Exception{
+		if (isEmpty()) {
+			throw new Exception("BST is empty");
+		}
+		printHelper(root);
+	}
+	
+	private void printHelper(MyBSTNode<Ttype> currentNode) {
+		// PREFIX apstaigasana ||| Sakne-kreisaisBerns-labisBerns
+		System.out.println("P -> " + currentNode.getElement());
+		
+		// ja eksiste kreisais berns
+		if (currentNode.getLeftCh() != null) {
+
+			System.out.println("Left ch -> " + currentNode.getLeftCh().getElement() + " (" + currentNode.getElement()
+			+ ")");
+			printHelper(currentNode.getLeftCh());			
+		}
+		// ja eksiste labais berns
+		if (currentNode.getRightCh() != null) {
+			
+			System.out.println("Right ch -> " + currentNode.getRightCh().getElement() + " ( " +
+			currentNode.getElement() + ")");
+			printHelper(currentNode.getRightCh());
+		}
+	}
+	
+	
+	
 }
